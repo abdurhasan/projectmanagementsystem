@@ -1,0 +1,48 @@
+
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+
+  <div class="container">
+    <div class="panel-heading col-lg-12">
+      <h1><b>Add Project</b></h1><hr>
+    </div>
+    <form class="" action="" method="post">
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-2">
+            <div class="checkbox">
+              <label>Name</label>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" id="nameproject" name="nameproject" value="" placeholder="Project Name" required>
+          </div>
+        </div>
+
+          <div class="row">
+              <div class="col-md-2">
+                    <div class="checkbox">
+                    <label>Member</label>
+               </div>
+          </div>
+          <div class="checkbox col-md-10">
+            <label>                      
+            <% for (let i = 0; i < data.length; i++) { %>
+                <input type="checkbox" name="memberproject" value="<%= data[i].user_id %>"><%= data[i].fullname%></br>
+            <% } %>                                                        
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1" align="center"></br>
+            <button type="submit" class="btn btn-primary">save</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div><!-- /.container -->
+</body>
+</html>

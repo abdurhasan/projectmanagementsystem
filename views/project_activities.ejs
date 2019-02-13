@@ -1,0 +1,64 @@
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+
+
+<div class="container-fluid">
+  <div class="row">
+   
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_overview/<%= projectid %>"><b>Overview</b></a></li>
+        <li class="active"><a href="#"><b>Activity</b></a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_members/<%= projectid %>"><b>Members</b></a></li>
+        <li><a href="/project_issues/<%= projectid %>"><b>Issues</b></a></li>
+      </ul>
+    </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h1 class="page-header"><b>Activity</b></h1>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <p><b>Activity</b></p>
+          
+          <%for(i=0;i<data.length;i++){%>
+
+          
+            <p><%=data[i].time%></p>
+            <ul>              
+              <li><%=data[i].description %></li>                        
+              <li><b>author</b> : <%=data[i].author %> </li>                        
+            </ul>
+          <%}%>
+            
+                        
+            
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+<script>
+function formatDate(dateString) {
+  var date = new Date(dateString)
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+</script>
+
+</body>
+</html>

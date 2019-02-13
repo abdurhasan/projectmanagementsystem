@@ -1,0 +1,208 @@
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_overview/<%=projectid%>"><b>Overview</b></a></li>
+        <li><a href="/project_activity/<%=projectid%>"><b>Activity</b></a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_members/<%=projectid%>"><b>Members</b></a></li>
+        <li class="active"><a href="/project_issues/<%=projectid%>"><b>Issues</b></a></li>
+      </ul>
+
+    </div>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h2 class="page-header"><b>New Issue</b></h2>
+
+
+      <div class="panel panel-default">
+        <form method="post" action="/add_projectissue/<%=projectid%>" enctype="multipart/form-data">
+          
+          
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="checkbox">
+                  <label>Project Name</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="id" placeholder="<%=projectname%>"readonly>
+              </div>
+            </div>
+
+            <input type="hidden" name="projectid" value="<%=projectid%>" />
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Tracker</label>
+                  </div>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="radio" name="tracker" value="Bug" > Bug
+                    <br><input type="radio" name="tracker" value="Feature" > Feature
+                    <br><input type="radio" name="tracker" value="Support"> Support
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Subject</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="subject" name="subject" value="" placeholder="Subject">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Description</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <textarea name="description" class="form-control" rows="3" placeholder="Description"></textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Status</label>
+                  </div>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="radio" name="status" value="New" > New
+                    <br><input type="radio" name="status" value="In Progress" > In Progress
+                    <br><input type="radio" name="status" value="Resolved"> Resolved
+                    <br><input type="radio" name="status" value="Feedback"> Feedback
+                    <br><input type="radio" name="status" value="Closed"> Closed
+                    <br><input type="radio" name="status" value="Rejected"> Rejected
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Priority</label>
+                  </div>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="radio" name="priority" value="Normal" > Normal
+                    <br><input type="radio" name="priority" value="High" > High
+                    <br><input type="radio" name="priority" value="Urgent"> Urgent
+                    <br><input type="radio" name="priority" value="Immediate"> Immediate
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label> Assignee </label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <select class="form-control" name="asignee">
+                    <option value="">Chosee Assignee...</option>                    
+                      <%for(i=0;i<assigner.length;i++){%>
+                          <option value="<%=assigner[i].user_id%>"><%=assigner[i].fullname%></option>                                            
+                      <%}%>
+                      
+                    </select>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>Start Date</label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="date" class="form-control" id="Sdate" name="Sdate" value="" placeholder="Start Date">
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>Due Date</label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="date" class="form-control" id="Ddate" name="Ddate" value="" placeholder="Due Date">
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>Estimated Time</label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="text" class="form-control" name="Edate" value="" placeholder="Estimated Time /hours">
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label> % Done </label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <select class="form-control" name="progress">
+                      <option value=""> Persentage of Progress... </option>
+                      <option name="progress" value="10"> 10 </option>
+                      <option name="progress" value="20"> 20 </option>
+                      <option name="progress" value="30"> 30 </option>
+                      <option name="progress" value="40"> 40 </option>
+                      <option name="progress" value="50"> 50 </option>
+                      <option name="progress" value="60"> 60 </option>
+                      <option name="progress" value="70"> 70 </option>
+                      <option name="progress" value="80"> 80 </option>
+                      <option name="progress" value="90"> 90 </option>
+                      <option name="progress" value="100"> 100 </option>
+                    </select>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>File</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="file" class="form-control"  name="filedoc" value="" required>
+                  </div>
+                </div><br>
+
+                
+              <div class="row">
+                <div class="col-md-1" align="center">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+  </html>

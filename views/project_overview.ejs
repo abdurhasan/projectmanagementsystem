@@ -1,0 +1,56 @@
+
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="#"><b>Overview</b></a></li>
+        <li><a href="/project_activity/<%=projectid%>"><b>Activity</b></a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_members/<%=projectid%>"><b>Members</b></a></li>
+        <li><a href="/project_issues/<%=projectid%>"><b>Issues</b></a></li>
+      </ul>
+
+    </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h1 class="page-header"><b>Overview</b></h1>
+
+      <h3><b>Library System</b></h3>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <p>Issue tracking :</p>
+          <ul>
+            <li>Bug: <%=bugOpen%> Open / <%=bugTotal%> </li>
+            <li>Feature: <%=featureOpen%> Open / <%=featureTotal%> </li>
+            <li>Support: <%=supportOpen%> Open / <%=supportTotal%> </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <p>Members :</p>
+          <ul>
+              <%for(i=0;i<members.length;i++){%>
+                <li><%=members[i].fullname%></li>
+              <%}%>
+        
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

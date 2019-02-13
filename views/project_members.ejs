@@ -1,0 +1,165 @@
+
+
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_overview/<%=projectid%>"><b>Overview</b></a></li>
+        <li><a href="/project_activity/<%=projectid%>"><b>Activity</b></a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="/project_members/<%=projectid%>"><b>Members</b></a></li>
+        <li><a href="/project_issues/<%=projectid%>"><b>Issues</b></a></li>
+      </ul>
+     </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h2 class="page-header"><b>Members</b></h2>
+
+      <h4><b>Fillter</b></h4>
+
+      <form class="" action="" method="get">
+        <div class="panel-body">
+
+          <div class="row">
+            <div class="col-md-2">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="blankCheckbox" name="cid" value="true"> ID
+                </label>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="id" name="id" placeholder="ID" value="">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="blankCheckbox" name="cname" value="true"> Name
+                </label>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="id" name="name" placeholder="Name" value="">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="blankCheckbox" name="cposition" value="true"> Position
+                </label>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <select class="form-control" name="position">
+                <option value="">Chosee Position...</option>
+                
+                  <option name="position" value="Manager">Manager</option>
+                  <option name="position" value="Software Developer">Software Developer</option>
+                  <option name="position" value="Quality Assurance">Quality Assurance</option>
+                  
+                </select>
+              </div>
+            </div><br/>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="/project_members/28" class="btn btn-warning">reset</a>
+          </div>
+        </form>
+
+        <h3><b>Options</b></h3>
+        <form class="" action="/config_members/<%=projectid%>" method="get">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-2"> Columns
+              </div>
+              <div class="col-md">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="smid" value="true" <%= config.smid == true ? ' checked' : '' %>> ID
+                    <br/><input type="checkbox" name="smname" value="true" <%= config.smname == true ? ' checked' : '' %>> Name
+                    <br/><input type="checkbox" name="smposition" value="true"  <%= config.smposition == true ? ' checked' : '' %>> Position
+                  </label>
+                </div>
+              </div>
+            </div><br/>
+            <button type="submit" class="btn btn-primary">Apply</button>
+          </div>
+          <br/>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                  <% if(config.smid){ %><th><b>ID</b></th><% } %>
+                  <% if(config.smname){ %><th><b>Name</b></th><% } %>
+                  <% if(config.smposition){ %><th><b>Position</b></th><% } %>
+                  
+                  <% if(config.smid || config.smname || config.smposition){  %><th>Action</th><% } %>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <%for(i=0;i<data.length;i++){%>
+                  <tr>
+                  <% if(config.smid){ %><td><%=data[i].user_id%></td><% } %>                    
+                  <% if(config.smname){ %><td><%=data[i].fullname%></td><% } %>                    
+                  <% if(config.smposition){ %><td><%=data[i].position%></td><% } %>                    
+                  
+                  <% if(config.smid || config.smname || config.smposition){  %>
+                    <td>                                            
+                    <a href="/delete_member/<%= projectid %>/<%= data[i].user_id %>" class="btn btn-danger" onclick="return confirm('Yakin mau delete member : <%=data[i].fullname%>')">delete</a>
+                    </td>
+                  <%}%>                                                            
+                  </tr>              
+                <%}%>  
+              
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <% if(pagination.page > 1){ %>
+            <li>
+                <a href="<%= pagination.url.replace(`page=${pagination.page}`, `page=${parseInt(pagination.page)-1}`) %>"
+                    aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <% } %>
+            <%for(let i=1;i<=pagination.pages;i++){%>
+
+            <li class="<%= pagination.page==i ? 'active':'' %> ">
+                <a href="<%= pagination.url.replace(`page=${pagination.page}`, `page=${i}`) %>">
+                    <%=i%>
+                </a>
+            </li>
+
+            <%}%>
+            
+            <% if(pagination.page < pagination.pages){ %>
+            <li>
+                <a href="<%= pagination.url.replace(`page=${pagination.page}`, `page=${parseInt(pagination.page)+1}`) %>"
+                    aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+        </nav>
+          <a href="/add_MemberProject/<%=projectid%>" type="submit" class="btn btn-primary">add</a>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

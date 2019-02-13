@@ -1,0 +1,222 @@
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_overview/<%=projectid%>"><b>Overview</b></a></li>
+        <li><a href="/project_activity/<%=projectid%>"><b>Activity</b></a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="/project_members/<%=projectid%>"><b>Members</b></a></li>
+        <li class="active"><a href="/project_issues/<%=projectid%>"><b>Issues</b></a></li>
+      </ul>
+    </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <h2 class="page-header"><b>Edit Issue</b></h2>
+
+
+
+      <div class="panel panel-default">
+        <form method="post" action="/edit_ProjectIssues" enctype="multipart/form-data">
+          <div class="panel-body">
+
+            <div class="row">
+              <div class="col-md-2">
+                <div class="checkbox">
+                  <label>Project Name</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <input type="text" class="form-control" id="id" placeholder="<%=projectname%>"readonly>
+              </div>
+            </div>
+
+            <input type="hidden" name="projectid" value="<%=projectid%>" />
+            <input type="hidden" name="issueid" value="<%=dataisu.issue_id%>" />
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Tracker</label>
+                  </div>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="radio" name="tracker" value="Bug" <%= dataisu.tracker == 'Bug' ? 'checked' : '' %> > Bug
+                    <br><input type="radio" name="tracker" value="Feature" <%= dataisu.tracker == 'Feature' ? 'checked' : '' %>> Feature
+                    <br><input type="radio" name="tracker" value="Support" <%= dataisu.tracker == 'Support' ? 'checked' : '' %>> Support
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Subject</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="subject" name="subject" value="<%= dataisu.subject%>">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Description</label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <textarea name="description" class="form-control" rows="3"><%= dataisu.description %></textarea>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Status</label>
+                  </div>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="radio" name="status" value="New" <%= dataisu.status == 'New' ? 'checked' : '' %>> New
+                    <br><input type="radio" name="status" value="In Progress" <%= dataisu.status == 'In Progress' ? 'checked' : '' %>> In Progress
+                    <br><input type="radio" name="status" value="Resolved" <%= dataisu.status == 'Resolved' ? 'checked' : '' %>> Resolved
+                    <br><input type="radio" name="status" value="Feedback" <%= dataisu.status == 'Feedback' ? 'checked' : '' %>> Feedback
+                    <br><input type="radio" name="status" value="Closed" <%= dataisu.status == 'Closed' ? 'checked' : '' %>> Closed
+                    <br><input type="radio" name="status" value="Rejected" <%= dataisu.status == 'Rejected' ? 'checked' : '' %>> Rejected
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label>Priority</label>
+                  </div>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="radio" name="priority" value="Normal" > Normal
+                    <br><input type="radio" name="priority" value="High" > High
+                    <br><input type="radio" name="priority" value="Urgent"> Urgent
+                    <br><input type="radio" name="priority" value="Immediate"> Immediate
+                  </label>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="checkbox">
+                    <label> Assignee </label>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <select class="form-control" name="asignee">                                   
+                      <%for(i=0;i<assigner.length;i++){%>
+                          <option value="<%=assigner[i].user_id%>"><%=assigner[i].fullname%></option>                                            
+                      <%}%>
+                      
+                    </select>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>Start Date</label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="date" class="form-control" id="Sdate" name="Sdate" value="<%= moment(dataisu.start_date).format("YYYY-MM-DD")%>" >
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>Due Date</label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="date" class="form-control" id="Ddate" name="Ddate" value="<%= moment(dataisu.due_date).format("YYYY-MM-DD")%>">
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>Estimated Time</label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <input type="text" class="form-control" name="Edate" value="<%=dataisu.estimated_time%>" >
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label> % Done </label>
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <select class="form-control" name="progress">
+                      <option value=""> Persentage of Progress... </option>
+                      <option name="progress" value="10"> 10 </option>
+                      <option name="progress" value="20"> 20 </option>
+                      <option name="progress" value="30"> 30 </option>
+                      <option name="progress" value="40"> 40 </option>
+                      <option name="progress" value="50"> 50 </option>
+                      <option name="progress" value="60"> 60 </option>
+                      <option name="progress" value="70"> 70 </option>
+                      <option name="progress" value="80"> 80 </option>
+                      <option name="progress" value="90"> 90 </option>
+                      <option name="progress" value="100"> 100 </option>
+                    </select>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="checkbox">
+                      <label>File</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">                  
+                    <input type="file" class="form-control"  name="filedoc"  value="" required>
+                  </div>
+                </div><br>
+
+
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-4">   
+                      <p>Loc : <%=dataisu.files%></p>                                                     
+                      <img class="img-thumbnail" width="200" height="236" src="<%=dataisu.files%>">
+                  </div>
+                </div><br>
+
+                
+              <div class="row">
+              <div class="col-md-10"></div>
+                <div class="col-md-1">
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <script>
+
+  </script>
+
+  </body>
+  </html>

@@ -1,0 +1,94 @@
+
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+
+<div class="container">
+  <div class="panel-heading col-lg-12">
+    <h1><b>Profile</b></h1>
+    <hr>
+  </div>
+  
+  <form class="" action="/profile_update/<%=user.user_id%>" method="post">
+  
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>Email</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" name="email" value="<%=user.email%>" readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>First name</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" name="first_name" value="<%=user.first_name%>">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>Last name</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" name="last_name"  value="<%=user.last_name%>">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>Password</label>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <input type="password" class="form-control" id="password" name="password" value="<%=user.password%>"required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>Position</label>
+          </div>
+        </div>
+        <div class="checkbox">
+          <label>
+          <input type="radio" name="position" value="Manager" <%=user.position== "Manager" ? ' checked' : '' ; %>> Manager
+          <br><input type="radio" name="position" value="Software Developer" <%=user.position== "Software Developer" ? ' checked' : '' ; %> > Software Developer
+          <br><input type="radio" name="position" value="Quality Assurance"<%=user.position== "Quality Assurance" ? ' checked' : '' ; %> > Quality Assurance
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="checkbox">
+            <label>Type</label>
+          </div>
+        </div>
+        <div class="checkbox col-md-10">
+          <label>
+          <input type="checkbox" name="type" value="true" <%=user.type ? ' checked' : '' ; %> > Fulltime
+          <br><input type="checkbox" name="type" value="false" <!%=user.type ? ' checked' : '' ; %> > Parttime
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-1" align="center">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+  </form>
+
+
+  </div>
+</div>
+
+
+</body>
+</html>

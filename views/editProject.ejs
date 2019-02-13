@@ -1,0 +1,51 @@
+
+<% include partials/header.ejs%>
+<% include partials/navbar.ejs%>
+
+  <div class="container">
+    <div class="panel-heading col-lg-12">
+      <h1><b>Edit Project</b></h1><hr>
+      
+    </div>
+    <form class="" action="/editproject/<%=id%>" method="post">
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-2">
+            <div class="checkbox">
+              <label>Name</label>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control"name="nameproject" value="<%=projectname%>" required>
+          </div>
+        </div>
+
+          <div class="row">
+              <div class="col-md-2">
+                    <div class="checkbox">
+                    <label>Member</label>
+               </div>
+          </div>
+          <div class="checkbox col-md-10">
+            <label>                      
+           
+                <% for (let i = 0; i < usersname.length; i++) { %>
+                <input type="checkbox" name="memberproject" value="<%= usersname[i].user_id %>" <%= idMembers.includes(usersname[i].user_id) ? "checked" : "" %>  ><%= usersname[i].fullname%></br>
+                <% } %>        
+           
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1" align="center"></br>
+            <button type="submit" class="btn btn-primary">edit</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div><!-- /.container -->
+</body>
+</html>
