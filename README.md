@@ -1,4 +1,4 @@
-## IT WAS IT
+## WHAT
 
 Simple project management App for my own smart team
 
